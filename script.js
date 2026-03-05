@@ -3,10 +3,7 @@ async function loadMovies() {
     const response = await fetch("posts/movies.json");
     const movies = await response.json();
 
-    const cardRows = document.querySelectorAll(".card-row");
-
-    // Use first row for trending
-    const trendingRow = cardRows[0];
+    const trendingRow = document.querySelectorAll(".card-row")[0];
 
     movies.forEach(movie => {
       const card = document.createElement("div");
@@ -14,10 +11,15 @@ async function loadMovies() {
 
       card.innerHTML = `
         <img src="${movie.image}" alt="${movie.title}" loading="lazy">
-        <div class="card-title">${movie.title}</div>
+        <div class="card-info">
+          <div class="card-title">${movie.title}</div>
+          <div class="card-category">${movie.category}</div>
+          <button class="download-btn">Download</button>
+        </div>
       `;
 
-      card.addEventListener("click", () => {
+      const button = card.querySelector(".download-btn");
+      button.addEventListener("click", () => {
         window.location.href = movie.shortlink;
       });
 
