@@ -6,19 +6,50 @@ async function loadMovies() {
     const response = await fetch("posts/movies.json");
     let movies = await response.json();
 
+    // Add click count
     movies.forEach(movie => {
       movie.clicks = clickData[movie.title] || 0;
     });
 
+    // Sort by clicks
     movies.sort((a, b) => b.clicks - a.clicks);
 
     allMovies = movies;
 
+    setupFeaturedHero(movies);
     displayMovies(allMovies);
 
   } catch (error) {
     console.error("Error loading movies:", error);
   }
+}
+
+function setupFeaturedHero(movies) {
+  const heroSection = document.querySelector(".hero");
+  const heroContent = document.querySelector(".hero-content");
+
+  const featuredMovie = movies.find(movie => movie.featured === true);
+
+  if (!featuredMovie) return;
+
+  heroSection.style.background = `
+    linear-gradient(to right, #000000cc, #00000099),
+    url('${featuredMovie.image}') center/cover
+  `;
+
+  heroContent.innerHTML = `
+    <h1>${featuredMovie.title}</h1>
+    <p>${featuredMovie.category}</p>
+    <button class="hero-btn">Download Now</button>
+  `;
+
+  const button = heroContent.querySelector(".hero-btn");
+
+  button.addEventListener("click", () => {
+    clickData[featuredMovie.title] = (clickData[featuredMovie.title] || 0) + 1;
+    localStorage.setItem("movieClicks", JSON.stringify(clickData));
+    window.location.href = featuredMovie.shortlink;
+  });
 }
 
 function displayMovies(movies) {

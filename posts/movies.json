@@ -1,20 +1,23 @@
 [
   {
     "title": "Fast Action Movie",
-    "image": "https://picsum.photos/300/450?random=1",
+    "image": "https://picsum.photos/800/400?random=1",
     "category": "Hollywood",
-    "shortlink": "https://example.com/download1"
+    "shortlink": "https://example.com/download1",
+    "featured": true
   },
   {
     "title": "Anime Adventure",
     "image": "https://picsum.photos/300/450?random=2",
     "category": "Anime",
-    "shortlink": "https://example.com/download2"
+    "shortlink": "https://example.com/download2",
+    "featured": false
   },
   {
     "title": "Thriller Night",
     "image": "https://picsum.photos/300/450?random=3",
     "category": "Hollywood",
-    "shortlink": "https://example.com/download3"
+    "shortlink": "https://example.com/download3",
+    "featured": false
   }
 ]
