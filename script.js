@@ -1,17 +1,54 @@
 let allMovies = [];
 let clickData = JSON.parse(localStorage.getItem("movieClicks")) || {};
+let userType = localStorage.getItem("userType") || "free"; // default free
+
+const DAILY_LIMIT = 3;
+
+function getTodayDate() {
+  return new Date().toISOString().split("T")[0];
+}
+
+function getDownloadData() {
+  return JSON.parse(localStorage.getItem("downloadData")) || {};
+}
+
+function saveDownloadData(data) {
+  localStorage.setItem("downloadData", JSON.stringify(data));
+}
+
+function canDownload() {
+  if (userType === "vip") return true;
+
+  const today = getTodayDate();
+  const data = getDownloadData();
+
+  if (!data[today]) {
+    data[today] = 0;
+    saveDownloadData(data);
+  }
+
+  return data[today] < DAILY_LIMIT;
+}
+
+function increaseDownloadCount() {
+  const today = getTodayDate();
+  const data = getDownloadData();
+
+  if (!data[today]) data[today] = 0;
+
+  data[today] += 1;
+  saveDownloadData(data);
+}
 
 async function loadMovies() {
   try {
     const response = await fetch("posts/movies.json");
     let movies = await response.json();
 
-    // Add click count
     movies.forEach(movie => {
       movie.clicks = clickData[movie.title] || 0;
     });
 
-    // Sort by clicks
     movies.sort((a, b) => b.clicks - a.clicks);
 
     allMovies = movies;
@@ -29,7 +66,6 @@ function setupFeaturedHero(movies) {
   const heroContent = document.querySelector(".hero-content");
 
   const featuredMovie = movies.find(movie => movie.featured === true);
-
   if (!featuredMovie) return;
 
   heroSection.style.background = `
@@ -46,10 +82,22 @@ function setupFeaturedHero(movies) {
   const button = heroContent.querySelector(".hero-btn");
 
   button.addEventListener("click", () => {
-    clickData[featuredMovie.title] = (clickData[featuredMovie.title] || 0) + 1;
-    localStorage.setItem("movieClicks", JSON.stringify(clickData));
-    window.location.href = featuredMovie.shortlink;
+    handleDownload(featuredMovie);
   });
+}
+
+function handleDownload(movie) {
+  if (!canDownload()) {
+    alert("Daily download limit reached! Upgrade to VIP for unlimited downloads.");
+    return;
+  }
+
+  increaseDownloadCount();
+
+  clickData[movie.title] = (clickData[movie.title] || 0) + 1;
+  localStorage.setItem("movieClicks", JSON.stringify(clickData));
+
+  window.location.href = movie.shortlink;
 }
 
 function displayMovies(movies) {
@@ -71,11 +119,8 @@ function displayMovies(movies) {
     `;
 
     const button = card.querySelector(".download-btn");
-
     button.addEventListener("click", () => {
-      clickData[movie.title] = (clickData[movie.title] || 0) + 1;
-      localStorage.setItem("movieClicks", JSON.stringify(clickData));
-      window.location.href = movie.shortlink;
+      handleDownload(movie);
     });
 
     row.appendChild(card);
@@ -103,7 +148,6 @@ function setupCategoryFilter() {
   menuLinks.forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
-
       const category = link.getAttribute("data-category");
 
       if (category === "all") {
