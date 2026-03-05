@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Fast Action Movie",
+    "image": "https://picsum.photos/300/450?random=1",
+    "category": "Hollywood",
+    "shortlink": "https://example.com/download1"
+  },
+  {
+    "title": "Anime Adventure",
+    "image": "https://picsum.photos/300/450?random=2",
+    "category": "Anime",
+    "shortlink": "https://example.com/download2"
+  },
+  {
+    "title": "Thriller Night",
+    "image": "https://picsum.photos/300/450?random=3",
+    "category": "Hollywood",
+    "shortlink": "https://example.com/download3"
+  }
+]
