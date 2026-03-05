@@ -1,47 +1,146 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #0f0f0f;
-    color: white;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
+body {
+  background-color: #0f0f0f;
+  color: white;
+}
+
+/* Top Nav */
 .top-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: #141414;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #141414;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .logo {
-    color: #00ff88;
-    margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #00ff88;
 }
 
 .search-bar {
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
+  padding: 8px;
+  border-radius: 20px;
+  border: none;
+  width: 50%;
 }
 
+/* Horizontal Menu */
+.main-menu {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  background: #111;
+}
+
+.main-menu a {
+  text-decoration: none;
+  color: white;
+  margin-right: 20px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.main-menu a:hover {
+  color: #00ff88;
+}
+
+/* Hero Section */
 .hero {
-    padding: 40px 20px;
-    background: linear-gradient(to right, #000000, #1a1a1a);
-    text-align: center;
+  height: 220px;
+  background: linear-gradient(to right, #000000cc, #00000099),
+              url('https://picsum.photos/800/400') center/cover;
+  display: flex;
+  align-items: center;
+  padding: 20px;
 }
 
-.content {
-    padding: 20px;
+.hero-content h1 {
+  font-size: 22px;
+  margin-bottom: 10px;
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
+.hero-btn {
+  padding: 8px 15px;
+  border: none;
+  background: #00ff88;
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Sections */
+.section {
+  padding: 15px;
+}
+
+.section h2 {
+  margin-bottom: 10px;
+}
+
+/* Card Row */
+.card-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
 }
 
 .card {
-    background: #1c1c1c;
-    padding: 10px;
-    border-radius: 8px;
+  min-width: 140px;
+  background: #1c1c1c;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-title {
+  padding: 8px;
+  font-size: 14px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #141414;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+
+.bottom-nav a:hover {
+  color: #00ff88;
+}
+
+/* Scrollbar Hidden */
+::-webkit-scrollbar {
+  display: none;
 }
