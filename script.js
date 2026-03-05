@@ -1,8 +1,12 @@
 let allMovies = [];
 let clickData = JSON.parse(localStorage.getItem("movieClicks")) || {};
-let userType = localStorage.getItem("userType") || "free"; // default free
+let userType = localStorage.getItem("userType") || "free";
 
 const DAILY_LIMIT = 3;
+
+/* ===========================
+   Utility Functions
+=========================== */
 
 function getTodayDate() {
   return new Date().toISOString().split("T")[0];
@@ -16,18 +20,24 @@ function saveDownloadData(data) {
   localStorage.setItem("downloadData", JSON.stringify(data));
 }
 
+function getRemainingDownloads() {
+  if (userType === "vip") return "Unlimited";
+
+  const today = getTodayDate();
+  const data = getDownloadData();
+  const used = data[today] || 0;
+
+  return Math.max(DAILY_LIMIT - used, 0);
+}
+
 function canDownload() {
   if (userType === "vip") return true;
 
   const today = getTodayDate();
   const data = getDownloadData();
+  const used = data[today] || 0;
 
-  if (!data[today]) {
-    data[today] = 0;
-    saveDownloadData(data);
-  }
-
-  return data[today] < DAILY_LIMIT;
+  return used < DAILY_LIMIT;
 }
 
 function increaseDownloadCount() {
@@ -39,6 +49,10 @@ function increaseDownloadCount() {
   data[today] += 1;
   saveDownloadData(data);
 }
+
+/* ===========================
+   Load Movies
+=========================== */
 
 async function loadMovies() {
   try {
@@ -60,6 +74,10 @@ async function loadMovies() {
     console.error("Error loading movies:", error);
   }
 }
+
+/* ===========================
+   Featured Hero
+=========================== */
 
 function setupFeaturedHero(movies) {
   const heroSection = document.querySelector(".hero");
@@ -86,6 +104,10 @@ function setupFeaturedHero(movies) {
   });
 }
 
+/* ===========================
+   Download Logic
+=========================== */
+
 function handleDownload(movie) {
   if (!canDownload()) {
     alert("Daily download limit reached! Upgrade to VIP for unlimited downloads.");
@@ -97,8 +119,14 @@ function handleDownload(movie) {
   clickData[movie.title] = (clickData[movie.title] || 0) + 1;
   localStorage.setItem("movieClicks", JSON.stringify(clickData));
 
+  updateProfileInfo();
+
   window.location.href = movie.shortlink;
 }
+
+/* ===========================
+   Display Movies
+=========================== */
 
 function displayMovies(movies) {
   const row = document.querySelector(".card-row");
@@ -127,6 +155,10 @@ function displayMovies(movies) {
   });
 }
 
+/* ===========================
+   Search
+=========================== */
+
 function setupSearch() {
   const searchInput = document.querySelector(".search-bar");
 
@@ -141,6 +173,10 @@ function setupSearch() {
     displayMovies(filtered);
   });
 }
+
+/* ===========================
+   Category Filter
+=========================== */
 
 function setupCategoryFilter() {
   const menuLinks = document.querySelectorAll(".main-menu a");
@@ -160,6 +196,56 @@ function setupCategoryFilter() {
   });
 }
 
+/* ===========================
+   Profile System
+=========================== */
+
+function setupProfileNavigation() {
+  const profileNav = document.getElementById("profileNav");
+  const homeNav = document.getElementById("homeNav");
+  const profileSection = document.querySelector(".profile-section");
+  const contentSection = document.querySelector(".content-section");
+  const heroSection = document.querySelector(".hero");
+
+  profileNav.addEventListener("click", (e) => {
+    e.preventDefault();
+    profileSection.style.display = "block";
+    contentSection.style.display = "none";
+    heroSection.style.display = "none";
+    updateProfileInfo();
+  });
+
+  homeNav.addEventListener("click", (e) => {
+    e.preventDefault();
+    profileSection.style.display = "none";
+    contentSection.style.display = "block";
+    heroSection.style.display = "block";
+  });
+}
+
+function updateProfileInfo() {
+  document.getElementById("userTypeDisplay").textContent = userType.toUpperCase();
+  document.getElementById("downloadsRemaining").textContent = getRemainingDownloads();
+}
+
+function setupUpgradeButton() {
+  const btn = document.getElementById("upgradeBtn");
+
+  btn.addEventListener("click", () => {
+    userType = "vip";
+    localStorage.setItem("userType", "vip");
+    updateProfileInfo();
+    alert("You are now VIP!");
+  });
+}
+
+/* ===========================
+   Init
+=========================== */
+
 loadMovies();
 setupSearch();
 setupCategoryFilter();
+setupProfileNavigation();
+setupUpgradeButton();
+updateProfileInfo();

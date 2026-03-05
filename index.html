@@ -23,25 +23,31 @@
 
   <!-- Hero Banner -->
   <section class="hero">
-    <div class="hero-content">
-      <h1>Welcome to RaxzDownload</h1>
-      <p>Your Modern Download Hub</p>
-      <button class="hero-btn">Explore Now</button>
-    </div>
+    <div class="hero-content"></div>
   </section>
 
   <!-- Content Section -->
-  <section class="section">
+  <section class="section content-section">
     <h2>Content</h2>
     <div class="card-row"></div>
   </section>
 
+  <!-- Profile Section -->
+  <section class="section profile-section" style="display:none;">
+    <h2>Your Profile</h2>
+    <div class="profile-box">
+      <p><strong>User Type:</strong> <span id="userTypeDisplay"></span></p>
+      <p><strong>Downloads Remaining Today:</strong> <span id="downloadsRemaining"></span></p>
+      <button id="upgradeBtn">Upgrade to VIP</button>
+    </div>
+  </section>
+
   <!-- Bottom Navigation -->
   <footer class="bottom-nav">
-    <a href="#">Home</a>
+    <a href="#" id="homeNav">Home</a>
     <a href="#">Categories</a>
     <a href="#">Downloads</a>
-    <a href="#">Profile</a>
+    <a href="#" id="profileNav">Profile</a>
   </footer>
 
   <script src="script.js"></script>
