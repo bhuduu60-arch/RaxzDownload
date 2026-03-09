@@ -51,5 +51,26 @@
   </footer>
 
   <script src="script.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAmQRKPqWz9IadkYDFo4ny8wZQ2yMx0vgc",
+    authDomain: "raxzdownload.firebaseapp.com",
+    projectId: "raxzdownload",
+    storageBucket: "raxzdownload.firebasestorage.app",
+    messagingSenderId: "203415012173",
+    appId: "1:203415012173:web:31184c74f5eea9f5a92d04",
+    measurementId: "G-6N8ZNVWBG3"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  console.log("🔥 Firebase connected successfully");
+</script>
 </body>
 </html>
