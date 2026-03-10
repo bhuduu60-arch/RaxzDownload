@@ -1,46 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Profile - RaxzDownload</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-        #profile {
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            max-width: 400px;
-            margin: auto;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        .verified {
-            color: #007bff;
-            font-weight: bold;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - RaxzDownload</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:linear-gradient(to bottom,#0f172a,#111827);
+    color:white;
+}
+
+/* HEADER */
+.profile-header{
+    text-align:center;
+    padding:30px 20px;
+}
+
+/* PROFILE IMAGE */
+.profile-pic{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #2563eb;
+}
+
+/* NAME */
+.name{
+    font-size:22px;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.verified-badge{
+    background:#1DA1F2;
+    color:white;
+    font-size:12px;
+    padding:4px 6px;
+    border-radius:50%;
+    margin-left:6px;
+}
+
+/* USERNAME */
+.username{
+    color:#94a3b8;
+    margin-top:6px;
+}
+
+/* STATS */
+.stats{
+    display:flex;
+    justify-content:space-around;
+    margin-top:25px;
+}
+
+.stat h3{
+    margin:0;
+}
+
+.stat p{
+    margin:0;
+    color:#94a3b8;
+    font-size:14px;
+}
+
+/* BUTTONS */
+.buttons{
+    margin-top:20px;
+}
+
+.btn{
+    padding:10px 20px;
+    border-radius:8px;
+    border:none;
+    font-weight:bold;
+    margin:5px;
+}
+
+.edit-btn{
+    background:#2563eb;
+    color:white;
+}
+
+.upload-btn{
+    background:#16a34a;
+    color:white;
+}
+
+/* POSTS GRID */
+.posts{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:3px;
+    margin-top:25px;
+}
+
+.post{
+    background:#1f2937;
+    height:120px;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:#111827;
+    display:flex;
+    justify-content:space-around;
+    padding:12px 0;
+    border-top:1px solid #1f2937;
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:white;
+    font-size:14px;
+}
+
+</style>
 </head>
+
 <body>
 
-    <div id="profile">
-        <h2>Your Profile</h2>
-        <img src="path_to_your_profile_image.jpg" alt="Profile Picture" style="border-radius: 50%; width: 100px; height: 100px;">
-        <p class="verified">✔️ Creator Verified</p>
-        <p>User Type: <strong>FREE</strong></p>
-        <p>Following: <strong>38</strong></p>
-        <p>Followers: <strong>112</strong></p>
-        <p>Likes: <strong>339</strong></p>
-        <button style="background-color: #ffc107;">Upgrade to VIP</button>
-    </div>
+<div class="profile-header">
 
-    <script>
-        // Here you can add logic to fetch user data from Firebase and display it
-    </script>
+<img src="images/profile.jpg" class="profile-pic">
+
+<div class="name">
+    <span id="displayName">Loading...</span>
+    <span id="verifiedBadge" class="verified-badge" style="display:none;">✔</span>
+</div>
+
+<div class="username" id="username">@loading</div>
+
+<div class="stats">
+    <div class="stat">
+        <h3 id="followingCount">0</h3>
+        <p>Following</p>
+    </div>
+    <div class="stat">
+        <h3 id="followersCount">0</h3>
+        <p>Followers</p>
+    </div>
+    <div class="stat">
+        <h3 id="likesCount">0</h3>
+        <p>Likes</p>
+    </div>
+</div>
+
+<div class="buttons">
+    <button class="btn edit-btn">Edit Profile</button>
+    <button class="btn upload-btn">Upload</button>
+</div>
+
+</div>
+
+<div class="posts">
+    <div class="post"></div>
+    <div class="post"></div>
+    <div class="post"></div>
+</div>
+
+<div class="bottom-nav">
+    <a href="index.html">Home</a>
+    <a href="#">Discover</a>
+    <a href="profile.html">Profile</a>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAmQRKPqWz9IadkYDFo4ny8wZQ2yMx0vgc",
+authDomain: "raxzdownload.firebaseapp.com",
+projectId: "raxzdownload",
+storageBucket: "raxzdownload.firebasestorage.app",
+messagingSenderId: "203415012173",
+appId: "1:203415012173:web:31184c74f5eea9f5a92d04"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async (user) => {
+
+if(user){
+
+document.getElementById("displayName").innerText = user.email;
+document.getElementById("username").innerText = "@" + user.email.split("@")[0];
+
+if(user.email === "luckylavish074@gmail.com"){
+document.getElementById("verifiedBadge").style.display = "inline-block";
+}
+
+}else{
+window.location.href = "login.html";
+}
+
+});
+
+</script>
+
 </body>
 </html>
