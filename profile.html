@@ -8,118 +8,122 @@
 <style>
 
 body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background:linear-gradient(to bottom,#0f172a,#111827);
-    color:white;
+margin:0;
+font-family:Arial, sans-serif;
+background:#0f172a;
+color:white;
 }
 
 /* HEADER */
 .profile-header{
-    text-align:center;
-    padding:30px 20px;
+text-align:center;
+padding:30px 20px;
+background:#111827;
 }
 
 /* PROFILE IMAGE */
 .profile-pic{
-    width:110px;
-    height:110px;
-    border-radius:50%;
-    object-fit:cover;
-    border:3px solid #2563eb;
+width:120px;
+height:120px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #2563eb;
 }
 
 /* NAME */
 .name{
-    font-size:22px;
-    font-weight:bold;
-    margin-top:15px;
+font-size:22px;
+font-weight:bold;
+margin-top:15px;
 }
 
 .verified-badge{
-    background:#1DA1F2;
-    color:white;
-    font-size:12px;
-    padding:4px 6px;
-    border-radius:50%;
-    margin-left:6px;
+background:#1DA1F2;
+color:white;
+font-size:12px;
+padding:4px 6px;
+border-radius:50%;
+margin-left:6px;
 }
 
 /* USERNAME */
 .username{
-    color:#94a3b8;
-    margin-top:6px;
+color:#94a3b8;
+margin-top:6px;
 }
 
 /* STATS */
 .stats{
-    display:flex;
-    justify-content:space-around;
-    margin-top:25px;
+display:flex;
+justify-content:space-around;
+margin-top:25px;
 }
 
 .stat h3{
-    margin:0;
+margin:0;
 }
 
 .stat p{
-    margin:0;
-    color:#94a3b8;
-    font-size:14px;
+margin:0;
+color:#94a3b8;
+font-size:14px;
 }
 
 /* BUTTONS */
 .buttons{
-    margin-top:20px;
+margin-top:20px;
 }
 
 .btn{
-    padding:10px 20px;
-    border-radius:8px;
-    border:none;
-    font-weight:bold;
-    margin:5px;
+padding:10px 20px;
+border-radius:8px;
+border:none;
+font-weight:bold;
+margin:5px;
+cursor:pointer;
 }
 
 .edit-btn{
-    background:#2563eb;
-    color:white;
+background:#2563eb;
+color:white;
 }
 
 .upload-btn{
-    background:#16a34a;
-    color:white;
+background:#16a34a;
+color:white;
 }
 
 /* POSTS GRID */
 .posts{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:3px;
-    margin-top:25px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:3px;
+margin-top:25px;
+padding:10px;
 }
 
 .post{
-    background:#1f2937;
-    height:120px;
+background:#1f2937;
+height:120px;
+border-radius:6px;
 }
 
 /* BOTTOM NAV */
 .bottom-nav{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    background:#111827;
-    display:flex;
-    justify-content:space-around;
-    padding:12px 0;
-    border-top:1px solid #1f2937;
+position:fixed;
+bottom:0;
+width:100%;
+background:#111827;
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+border-top:1px solid #1f2937;
 }
 
 .bottom-nav a{
-    text-decoration:none;
-    color:white;
-    font-size:14px;
+text-decoration:none;
+color:white;
+font-size:14px;
 }
 
 </style>
@@ -129,54 +133,53 @@ body{
 
 <div class="profile-header">
 
-<img src="images/profile.jpg" class="profile-pic">
+<img id="profileImage" src="images/profile.jpg" class="profile-pic">
 
 <div class="name">
-    <span id="displayName">Loading...</span>
-    <span id="verifiedBadge" class="verified-badge" style="display:none;">✔</span>
+<span id="displayName">Loading...</span>
+<span id="verifiedBadge" class="verified-badge" style="display:none;">✔</span>
 </div>
 
 <div class="username" id="username">@loading</div>
 
 <div class="stats">
-    <div class="stat">
-        <h3 id="followingCount">0</h3>
-        <p>Following</p>
-    </div>
-    <div class="stat">
-        <h3 id="followersCount">0</h3>
-        <p>Followers</p>
-    </div>
-    <div class="stat">
-        <h3 id="likesCount">0</h3>
-        <p>Likes</p>
-    </div>
+<div class="stat">
+<h3 id="followingCount">0</h3>
+<p>Following</p>
+</div>
+<div class="stat">
+<h3 id="followersCount">0</h3>
+<p>Followers</p>
+</div>
+<div class="stat">
+<h3 id="likesCount">0</h3>
+<p>Likes</p>
+</div>
 </div>
 
 <div class="buttons">
-    <button class="btn edit-btn">Edit Profile</button>
-    <button class="btn upload-btn">Upload</button>
+<button class="btn edit-btn">Edit Profile</button>
+<button class="btn upload-btn">Upload</button>
 </div>
 
 </div>
 
 <div class="posts">
-    <div class="post"></div>
-    <div class="post"></div>
-    <div class="post"></div>
+<div class="post"></div>
+<div class="post"></div>
+<div class="post"></div>
 </div>
 
 <div class="bottom-nav">
-    <a href="index.html">Home</a>
-    <a href="#">Discover</a>
-    <a href="profile.html">Profile</a>
+<a href="index.html">Home</a>
+<a href="#">Discover</a>
+<a href="profile.html">Profile</a>
 </div>
 
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyAmQRKPqWz9IadkYDFo4ny8wZQ2yMx0vgc",
@@ -189,16 +192,15 @@ appId: "1:203415012173:web:31184c74f5eea9f5a92d04"
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(auth, (user) => {
 
 if(user){
 
 document.getElementById("displayName").innerText = user.email;
 document.getElementById("username").innerText = "@" + user.email.split("@")[0];
 
-if(user.email === "luckylavish074@gmail.com"){
+if(user.email === "creator"){
 document.getElementById("verifiedBadge").style.display = "inline-block";
 }
 
