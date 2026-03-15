@@ -1,66 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RaxzDownload</title>
 
 <style>
+
 body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background:#0f172a;
-    color:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    text-align:center;
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(to bottom,#0f172a,#111827);
+color:white;
 }
 
-.container{
-    max-width:400px;
+/* HEADER */
+.header{
+background:#111827;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:18px;
+font-weight:bold;
 }
 
-h1{
-    font-size:32px;
-    margin-bottom:10px;
+.header span{
+color:#2563eb;
 }
 
-p{
-    color:#94a3b8;
-    margin-bottom:30px;
+/* FEED */
+.feed{
+padding:15px;
+padding-bottom:80px;
 }
 
-.btn{
-    display:block;
-    padding:12px;
-    margin:10px 0;
-    border-radius:8px;
-    text-decoration:none;
-    font-weight:bold;
+.card{
+background:#1f2937;
+padding:15px;
+margin-bottom:15px;
+border-radius:12px;
 }
 
-.login{
-    background:#2563eb;
-    color:white;
+.card h3{
+margin:0 0 10px 0;
 }
 
-.signup{
-    background:#16a34a;
-    color:white;
+.card p{
+color:#94a3b8;
+margin:0;
 }
+
+/* UPLOAD FLOAT BUTTON */
+.floating-upload{
+position:fixed;
+bottom:80px;
+right:20px;
+background:#16a34a;
+width:55px;
+height:55px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+color:white;
+box-shadow:0 4px 10px rgba(0,0,0,0.4);
+cursor:pointer;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+position:fixed;
+bottom:0;
+width:100%;
+background:#111827;
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+border-top:1px solid #1f2937;
+}
+
+.bottom-nav a{
+text-decoration:none;
+color:white;
+font-size:14px;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1>Welcome to RaxzDownload</h1>
-    <p>Stream. Download. Enjoy.</p>
+<div class="header">
+Raxz<span>Download</span>
+<div>🔥 Trending</div>
+</div>
 
-    <a href="login.html" class="btn login">Login</a>
-    <a href="signup.html" class="btn signup">Create Account</a>
+<div class="feed">
+
+<div class="card">
+<h3>🎬 Latest Movies</h3>
+<p>New uploads coming soon...</p>
+</div>
+
+<div class="card">
+<h3>📱 Apps & Tools</h3>
+<p>Discover trending apps.</p>
+</div>
+
+<div class="card">
+<h3>😂 Viral Content</h3>
+<p>Funny and trending clips.</p>
+</div>
+
+</div>
+
+<div class="floating-upload">+</div>
+
+<div class="bottom-nav">
+<a href="index.html">Home</a>
+<a href="#">Discover</a>
+<a href="profile.html">Profile</a>
 </div>
 
 </body>
